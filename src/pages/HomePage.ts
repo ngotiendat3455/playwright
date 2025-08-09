@@ -10,7 +10,7 @@ export default class HomePage {
         searchInput: "//form[@class='search_form']//input[@name='resultParam']",
         btnSubmit: "//form[@class='search_form']//div[@class='search']//input[@type='search']",
         serviceCard: "//div[contains(@class, 'service-card')]",
-        numberOfCategory: "//div[@class='number-of-categories']"
+        numberOfCategory: "//div[@class='number-of-result']"
     }
 
     private ElementsCategory = {
