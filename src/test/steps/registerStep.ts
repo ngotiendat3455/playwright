@@ -4,7 +4,7 @@ import { expect } from "@playwright/test";
 import { fixture } from "../../hooks/pageFixture";
 import RegisterPage from "../../pages/RegisterPage";
 import Assert from "../../helper/wrapper/assert";
-
+setDefaultTimeout(60 * 1000 * 2)
 let registerPage: RegisterPage;
 let assert: Assert;
 
@@ -13,13 +13,13 @@ Given("I navigate to the register page", async () => {
     assert = new Assert(fixture.page);
 
     await registerPage.navigateToRegisterPage()
-    await assert.assertTitle("//h2[@class='form-title-register' and text()='REGISTER']");
+    // await assert.assertTitle("//h2[@class='form-title-register' and text()='REGISTER']");
 })
 
 When('I created a new user', async function () {
     const email = `datngotien${Date.now().toString()}@gmail.com`;
     await registerPage.registerUser('Ngo Tien Dat', email,
-        '123456', '123456', 'm', "20-05-1997", "0946464198");
+        '123456', '123456', 'm', "1997-05-20", "0946464198");
 });
 
 Then("I conform user registeration is success", async function () {

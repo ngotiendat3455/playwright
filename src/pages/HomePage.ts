@@ -1,4 +1,4 @@
-import { Page } from "@playwright/test";
+import { expect, Page } from "@playwright/test";
 import PlaywrightWrapper from "../helper/wrapper/PlaywrightWrappers";
 
 export default class HomePage {
@@ -24,11 +24,12 @@ export default class HomePage {
     }
     async verifyResult (keyword: string) {
         const results = this.page.locator(this.Elements.serviceCard);
-        await expect(results).toHaveCountGreaterThan(0);
+        const count = await results.count();
+
         
         // const firstElement = this.page.locator("(//div[@class='service-name']/a[contains(translate(text(), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'logo design')])[1]");
         const resultsContain = this.page.locator(`//div[contains(@class, 'service-card')][.//div[@class='service-name']/a[contains(., '${keyword}')]]`);
-        await expect(resultsContain).toHaveCountGreaterThan(0);
+        await expect(resultsContain).toHaveCount(count);
 
     }
 

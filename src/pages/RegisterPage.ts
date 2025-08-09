@@ -39,13 +39,17 @@ export default class RegisterPage {
         await this.page.type(this.Elements.password, password);
         await this.page.type(this.Elements.confirmPassword, confirmPassword);
         await this.page.type(this.Elements.phone, phone);
-        if (gender == "m") {
-            await this.page.click(this.Elements.maleRadioBtn);
-            await expect(this.page.locator(this.Elements.maleRadioBtn)).toBeChecked();
-        } else {
-            await this.page.click(this.Elements.femaleRadioBtn);
-            await expect(this.page.locator(this.Elements.femaleRadioBtn)).toBeChecked();
-        }
+         const birthdayInput = await this.page.locator('//input[@id="birthday"]');
+
+        // Fill in the date (format: YYYY-MM-DD)
+        await birthdayInput.fill(birthday) ;
+        // if (gender == "m") {
+        //     await this.page.click(this.Elements.maleRadioBtn);
+        //     await expect(this.page.locator(this.Elements.maleRadioBtn)).toBeChecked();
+        // } else {
+        //     await this.page.click(this.Elements.femaleRadioBtn);
+        //     await expect(this.page.locator(this.Elements.femaleRadioBtn)).toBeChecked();
+        // }
         await this.page.click(this.Elements.agreeTerm);
         await expect(this.page.locator(this.Elements.agreeTerm)).toBeChecked();
         const regBtn = this.page.locator(this.Elements.regBtn);

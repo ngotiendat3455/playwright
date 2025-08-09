@@ -7,55 +7,36 @@ import Assert from "../../helper/wrapper/assert";
 
 let homePage: HomePage;
 let assert: Assert;
+setDefaultTimeout(60 * 1000 * 2);
 
-Given("User navigates to the application", async () => {
+Given("User navigates to the home page", async () => {
     homePage = new HomePage(fixture.page);
     assert = new Assert(fixture.page);
     await homePage.navigateToHomePage();
-})
+    await fixture.page.locator("//div[contains(@class, 'trusted-by')]").scrollIntoViewIfNeeded();
+});
 
-
-When('User enter the search keyword as {string} And User click the search button', async function (keyword) {
-    // await fixture.page.locator("//input[@id='email' and @name='email' and @placeholder='Your Email']").type(username);
+When('User enters the search keyword as {string} And User clicks the search button', async function (keyword: string) {
     await homePage.searchFunction(keyword);
 });
 
-Then("Search results should display services containing {string}", async function(keyword) {
+Then("Search results should display services containing {string}", async function (keyword: string) {
     await homePage.verifyResult(keyword);
-})
-
-When('User enters the search keyword as "" And User clicks the search button', async function () {
-    // await fixture.page.locator("//input[@id='email' and @name='email' and @placeholder='Your Email']").type(username);
-    await homePage.searchFunction('');
 });
 
-Then("Search should show an error message or all services", async function() {
+Then("Search results should display services containing as {string}", async function (keyword: string) {
+    await homePage.verifyResult(keyword);
+});
+
+Then("Search should show an error message or all services", async function () {
     await homePage.verifyNullResult();
 });
 
-When('User enters the search keyword as {string} And User clicks the search button', async function (keyword) {
-    // await fixture.page.locator("//input[@id='email' and @name='email' and @placeholder='Your Email']").type(username);
-    await homePage.searchFunction(keyword);
+Then('Search should show a "0 services available" message', async function () {
+    await homePage.verifyNullResult();
 });
 
-Then('Search results should display services containing as {string}', async function(keyword) {
-    await homePage.verifyResult(keyword);
-})
-
-When('User enters the search keyword as {string} And User clicks the search button', async function (keyword) {
-    // await fixture.page.locator("//input[@id='email' and @name='email' and @placeholder='Your Email']").type(username);
-    await homePage.searchFunction(keyword);
-});
-
-Then('Search should show a "0 services available" message', async function(keyword) {
-    await homePage.verifyResult(keyword);
-});
-
-When('User enters a long search keyword with 100 characters And User clicks the search button', async function (keyword) {
-    // await fixture.page.locator("//input[@id='email' and @name='email' and @placeholder='Your Email']").type(username);
-    await homePage.searchFunction(`await fixture.page.locator("//input[@id='email' and @name='email' and @placeholder='Your Email']").type(username)`);
-});
-
-Then('Search should show a "0 services available" message', async function(keyword) {
-    await homePage.verifyResult(keyword);
+When('User enters a long search keyword with 100 characters And User clicks the search button', async function () {
+    const longKeyword = "a".repeat(100); // Generate a 100-character keyword
+    await homePage.searchFunction(longKeyword);
 });
