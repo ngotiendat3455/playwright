@@ -12,7 +12,7 @@ Scenario: View Services in a Valid Category
     Then The system displays a list of services in the "Graphics & Design" category
 
 Scenario: View Services in Category with No Services
-    When Hover a valid category as "Testing" and Select a sub category with no services as "Web & App design"
+    When Hover a valid category as "Testing" and Select a sub category with no services as "Web & App Design"
     Then The system displays a message like "0 services available"
 
 Scenario: View Services with Multiple Filters 
