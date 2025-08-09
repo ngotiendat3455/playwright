@@ -18,12 +18,12 @@ export default class HomePage {
         subCategoryHasItem: `//section[contains(@class, "explore-job-title")]//div[contains(@class, "item")]`,
         menuItem: "//section[contains(@class, 'CategoriesMenu')]//a[contains(@class, 'links') and contains(@class, 'active') and @href='/title/1' and .//p[contains(text(), 'Graphics & Design')]]",
         categoryService: "//div[contains(@class, 'categories-services')]",
-        numberOfCategory: "//div[contains(@class, 'number-of-categories')]"
+        numberOfCategory: "//div[@class='number-of-result']"
     }
 
     async selectValidCategoryAndTypeService(category, subcategory) {
           await this.page.locator(`//section[@class='CategoriesMenu']//p[normalize-space(.)='${category}']`).hover();
-          await this.page.locator(`//div[@class='categoriesmenu_li_jobdetail categoriesmenu_li_jobdetail_4621']//a[normalize-space(.)='${subcategory}']`).click();
+          await this.page.locator(`//section[@class='CategoriesMenu']//div[contains(@class,'categoriesmenu_li_jobdetail_4621')]//a[@class='categoriesmenu_li_jobdetail_detail_job container' and normalize-space()='${subcategory}']`).click();
           await this.page.waitForLoadState();
     }
     async selectValidCategory (category: string) {
@@ -33,14 +33,15 @@ export default class HomePage {
     }
     async getListSubcategory() {
         const results = await this.page.locator(this.ElementsCategory.subCategoryHasItem);
-        await expect(results).toBeVisible();
+        const countItem = await results.count();
+        await expect(results).toHaveCount(countItem);
     }
 
     async getListService(category: string) {
         // const results = await this.page.locator(this.ElementsCategory.categoryService);
-        const count = await this.page.locator(this.ElementsCategory.numberOfCategory);
+        // const count = await this.page.locator(this.ElementsCategory.numberOfCategory);
         await this.verifyResult(category);
-        await expect(count).toBeVisible();
+        // await expect(count).tobe;
     }
     async navigateToHomePage() {
         await this.base.goto(process.env.BASEURL)

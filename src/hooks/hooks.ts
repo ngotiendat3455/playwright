@@ -34,8 +34,7 @@ After(async function ({
     // screenshot
     if (result?.status == Status.FAILED) {
         const img = await fixture.page.screenshot({
-            path: "./test-results/screenshots/", 
-            type: "png"
+            path: `./test-results/screenshots/${pickle.name}.png`, type: "png" , 
         })
         await this.attach(img, "image/png");
     }
