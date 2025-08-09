@@ -23,7 +23,7 @@ export default class HomePage {
 
     async selectValidCategoryAndTypeService(category, subcategory) {
           await this.page.locator(`//section[@class='CategoriesMenu']//p[normalize-space(.)='${category}']`).hover();
-          await this.page.locator(`//div[@class='categoriesmenu_li_jobdetail']//a[normalize-space(.)='${subcategory}']`).click();
+          await this.page.locator(`//div[@class='categoriesmenu_li_jobdetail categoriesmenu_li_jobdetail_4621']//a[normalize-space(.)='${subcategory}']`).click();
           await this.page.waitForLoadState();
     }
     async selectValidCategory (category: string) {
