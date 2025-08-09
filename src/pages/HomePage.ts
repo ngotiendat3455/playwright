@@ -8,7 +8,7 @@ export default class HomePage {
     }
     private Elements = {
         searchInput: "//form[@class='search_form']//input[@name='resultParam']",
-        btnSubmit: "//form[@class='search_form']//div[@class='search']//input[@type='search']",
+        btnSubmit: "//form[@class='search_form']//button[normalize-space()='Search']",
         serviceCard: "//div[contains(@class, 'service-card')]",
         numberOfCategory: "//div[@class='number-of-result']"
     }
@@ -23,7 +23,7 @@ export default class HomePage {
 
     async selectValidCategoryAndTypeService(category, subcategory) {
           await this.page.locator(`//section[@class='CategoriesMenu']//p[normalize-space(.)='${category}']`).hover();
-          await this.page.locator(`//section[@class='CategoriesMenu']//div[contains(@class,'categoriesmenu_li_jobdetail_4621')]//a[@class='categoriesmenu_li_jobdetail_detail_job container' and normalize-space()='${subcategory}']`).click();
+          await this.page.locator(`//a[@class='categoriesmenu_li_jobdetail_detail_job container' and normalize-space()='${subcategory}']`).click();
           await this.page.waitForLoadState();
     }
     async selectValidCategory (category: string) {
