@@ -12,6 +12,36 @@ export default class HomePage {
         serviceCard: "//div[contains(@class, 'service-card')]",
         numberOfCategory: "//div[@class='number-of-categories']"
     }
+
+    private ElementsCategory = {
+        subCategoryItem: "//section[contains(@class, 'explore-job-title')]",
+        subCategoryHasItem: `//section[contains(@class, "explore-job-title")]//div[contains(@class, "item")]`,
+        menuItem: "//section[contains(@class, 'CategoriesMenu')]//a[contains(@class, 'links') and contains(@class, 'active') and @href='/title/1' and .//p[contains(text(), 'Graphics & Design')]]",
+        categoryService: "//div[contains(@class, 'categories-services')]",
+        numberOfCategory: "//div[contains(@class, 'number-of-categories')]"
+    }
+
+    async selectValidCategoryAndTypeService(category, subcategory) {
+          await this.page.locator(`//section[@class='CategoriesMenu']//p[normalize-space(.)='${category}']`).hover();
+          await this.page.locator(`//div[@class='categoriesmenu_li_jobdetail']//a[normalize-space(.)='${subcategory}']`).click();
+          await this.page.waitForLoadState();
+    }
+    async selectValidCategory (category: string) {
+        await this.page.locator(`//section[@class='CategoriesMenu']//p[normalize-space(.)='${category}']`).click();
+
+        await this.page.waitForLoadState();
+    }
+    async getListSubcategory() {
+        const results = await this.page.locator(this.ElementsCategory.subCategoryHasItem);
+        await expect(results).toBeVisible();
+    }
+
+    async getListService(category: string) {
+        // const results = await this.page.locator(this.ElementsCategory.categoryService);
+        const count = await this.page.locator(this.ElementsCategory.numberOfCategory);
+        await this.verifyResult(category);
+        await expect(count).toBeVisible();
+    }
     async navigateToHomePage() {
         await this.base.goto(process.env.BASEURL)
     }
@@ -20,7 +50,10 @@ export default class HomePage {
         keyword: string
     ) {
         await this.page.type(this.Elements.searchInput, keyword);
-        await this.page.click(this.Elements.btnSubmit);
+        const btn = await this.page.locator(this.Elements.btnSubmit);
+        await btn.click();
+        await this.page.waitForLoadState();
+        await this.page.waitForTimeout(1000);
     }
     async verifyResult (keyword: string) {
         const results = this.page.locator(this.Elements.serviceCard);
