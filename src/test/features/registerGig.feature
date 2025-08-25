@@ -3,7 +3,7 @@ Feature: View Registered Services (Gigs) Functionality
   Background:
     Given User navigates to the application profile
     And User is logged in as "datngotien345@gmail.com" to check
-    And User navigates to the profile page
+    And User navigates to the profile page next
 
   Scenario: Verify No Active Gigs Message
     When There are no active gigs

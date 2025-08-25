@@ -41,7 +41,7 @@ Feature: Profile Page Functionality
   Scenario: Verify Gigs Section
     When User navigates to the profile page
     Then Gigs section shows message "It seems that you don't have any active Gigs."
-    And "Create a new Gig" button is present
+    And "Create a new Gig" button is present in profile
 
   Scenario: Verify Logout Functionality
     When User navigates to the profile page
